@@ -1,5 +1,8 @@
 package edu.escuelaing.arep;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+
 
 public class Server {
 
@@ -9,10 +12,15 @@ public class Server {
 	 * and open the template in the editor.
 	 */
 	
-    static int getPort() {
+    static ServerSocket getServer() throws IOException {
+        int port;
         if (System.getenv("PORT") != null) {
-            return Integer.parseInt(System.getenv("PORT"));
+            port = Integer.parseInt(System.getenv("PORT"));
+        }else{
+            port = 4567; //returns default port if heroku-port isn't set (i.e.on localhost)
         }
-        return 4567; //returns default port if heroku-port isn't set (i.e.on localhost)
+        ServerSocket server = null;
+        server = new ServerSocket(port);
+        return server;
     }
 }
